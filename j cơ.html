@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Câu hỏi tình yêu</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #ffe6e6;
+            text-align: center;
+            margin-top: 100px;
+        }
+        .question {
+            font-size: 24px;
+            margin-bottom: 20px;
+        }
+        button {
+            padding: 10px 20px;
+            font-size: 18px;
+            margin: 10px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="question">Yêu tao không?</div>
+    <button id="yes">Có</button>
+    <button id="no">Không</button>
+    <audio id="music" loop>
+        <source src="/asset/mp3/y2mate.com - You And You Only Remix  ThahTrung Remix  Nhạc Hot TikTok Remix Mới Nhất 2024.mp3" type="audio/mpeg">
+        Trình duyệt của bạn không hỗ trợ thẻ âm thanh.
+    </audio>
+
+    <script>
+        const music = document.getElementById('music');
+        let isMusicPlaying = false;
+
+        document.getElementById('yes').addEventListener('click', function() {
+            alert('Anh biết mà! Yêu em nhiều!');
+        });
+
+        document.getElementById('no').addEventListener('click', function() {
+            var noButton = document.getElementById('no');
+            var yesButton = document.getElementById('yes');
+            var questionDiv = document.querySelector('.question');
+
+            var noButtonWidth = noButton.offsetWidth;
+            var noButtonHeight = noButton.offsetHeight;
+
+            var yesButtonRect = yesButton.getBoundingClientRect();
+            var questionRect = questionDiv.getBoundingClientRect();
+            
+            var newX, newY;
+
+            do {
+                newX = Math.random() * (window.innerWidth - noButtonWidth);
+                newY = Math.random() * (window.innerHeight - noButtonHeight);
+            } while (
+                (newX < yesButtonRect.right && newX + noButtonWidth > yesButtonRect.left &&
+                 newY < yesButtonRect.bottom && newY + noButtonHeight > yesButtonRect.top) ||
+                (newX < questionRect.right && newX + noButtonWidth > questionRect.left &&
+                 newY < questionRect.bottom && newY + noButtonHeight > questionRect.top)
+            );
+
+            noButton.style.position = 'absolute';
+            noButton.style.top = newY + 'px';
+            noButton.style.left = newX + 'px';
+            if (!isMusicPlaying) {
+                music.play();
+                isMusicPlaying = true;
+            }
+        });
+    </script>
+</body>
+</html>
